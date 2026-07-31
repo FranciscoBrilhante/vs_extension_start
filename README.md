@@ -1,18 +1,17 @@
 # Start Script Button
 
-Adds a **Run Start Script** button to the Visual Studio Code terminal toolbar. With a single click, the extension automatically finds the `start` script defined in your workspace's `package.json` and runs it in the active terminal. Other scripts will also appear under a dropdown.
+Adds a **Run NPM Script** button to the Visual Studio Code terminal toolbar. With a single click, the extension automatically finds the main script defined in your workspace's `package.json` and runs it in the active terminal. Other scripts will also appear under a dropdown.
 
 ## Features
 
 - 🚀 Adds a convenient button to the terminal toolbar.
-- 📦 Automatically detects the `start` script in your workspace's `package.json`.
+- 📦 Automatically loads scripts from your workspace's `package.json`.
 - ▶️ Runs the script in the active terminal with one click.
 - 🛠️ No configuration required.
 
 ## Requirements
 
-- A workspace containing a `package.json` file.
-- A `start` script defined in the `scripts` section.
+- A workspace containing a `package.json` file with scripts entry.
 
 Example:
 
@@ -27,7 +26,9 @@ Example:
 Click the toolbar button, and the extension will execute:
 
 ```sh
-npm run start
+npm run <your_command>
 ```
 
-(or the appropriate package manager command, if supported by the extension).
+## Configuration
+
+You can change the default script to run under the extension setting `@ext:francisco-fernandes.npm-script-button`. Just type `start`, `dev`, `build`, etc.

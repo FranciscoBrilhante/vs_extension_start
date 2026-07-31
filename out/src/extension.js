@@ -43,7 +43,7 @@ function getPackageJsonPath() {
     if (!folder) {
         return undefined;
     }
-    return path.join(folder.uri.fsPath, "package.json");
+    return path.join(folder.uri.fsPath, 'package.json');
 }
 function getScripts() {
     const pkg = getPackageJsonPath();
@@ -51,7 +51,7 @@ function getScripts() {
         return {};
     }
     try {
-        const json = JSON.parse(fs.readFileSync(pkg, "utf8"));
+        const json = JSON.parse(fs.readFileSync(pkg, 'utf8'));
         return json.scripts ?? {};
     }
     catch {
@@ -59,29 +59,46 @@ function getScripts() {
     }
 }
 function getTerminal() {
-    return vscode.window.activeTerminal ?? vscode.window.createTerminal("NPM");
+    return vscode.window.activeTerminal ?? vscode.window.createTerminal('NPM');
 }
 function runScript(name) {
     const terminal = getTerminal();
     terminal.show(true);
     terminal.sendText(`npm run ${name}`);
 }
+function getConfiguredScript() {
+    return vscode.workspace.getConfiguration('nmScriptRunner').get('defaultScript', 'auto');
+}
+function getDefaultScript() {
+    const scripts = getScripts();
+    const configured = getConfiguredScript();
+    if (configured !== 'auto') {
+        return configured in scripts ? configured : undefined;
+    }
+    const priority = ['start', 'dev', 'serve', 'build'];
+    return priority.find((script) => script in scripts);
+}
 function activate(context) {
-    context.subscriptions.push(vscode.commands.registerCommand("npmRunner.start", () => {
-        runScript("start");
+    context.subscriptions.push(vscode.commands.registerCommand('npmRunner.start', () => {
+        const script = getDefaultScript();
+        if (!script) {
+            vscode.window.showInformationMessage('No configured npm script found.');
+            return;
+        }
+        runScript(script);
     }));
-    context.subscriptions.push(vscode.commands.registerCommand("npmRunner.pickScript", async () => {
+    context.subscriptions.push(vscode.commands.registerCommand('npmRunner.pickScript', async () => {
         const scripts = getScripts();
         const names = Object.keys(scripts);
         if (!names.length) {
-            vscode.window.showInformationMessage("No scripts found.");
+            vscode.window.showInformationMessage('No scripts found.');
             return;
         }
-        const selected = await vscode.window.showQuickPick(names.map(name => ({
+        const selected = await vscode.window.showQuickPick(names.map((name) => ({
             label: name,
-            description: scripts[name]
+            description: scripts[name],
         })), {
-            placeHolder: "Select an npm script"
+            placeHolder: 'Select an npm script',
         });
         if (!selected) {
             return;
@@ -92,7 +109,7 @@ function activate(context) {
     if (pkg) {
         const watcher = vscode.workspace.createFileSystemWatcher(pkg);
         watcher.onDidChange(() => {
-            vscode.commands.executeCommand("setContext", "npmRunner.changed", true);
+            vscode.commands.executeCommand('setContext', 'npmRunner.changed', true);
         });
         context.subscriptions.push(watcher);
     }

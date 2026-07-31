@@ -3,6 +3,7 @@
     "displayName": "NPM Script Button",
     "description": "Run npm scripts from the terminal toolbar with a single button click.",
     "version": "0.0.1",
+    "repository": "https://github.com/FranciscoBrilhante/start_extension",
     "publisher": "francisco-fernandes",
     "engines": {
         "vscode": "^1.95.0"
@@ -14,7 +15,18 @@
         "workspaceContains:package.json"
     ],
     "main": "./out/src/extension.js",
+    "icon": "./icon.png",
     "contributes": {
+        "configuration": {
+            "title": "NPM Script Button",
+            "properties": {
+                "nmScriptRunner.defaultScript": {
+                    "type": "string",
+                    "default": "start",
+                    "description": "The npm script to run when clicking the terminal toolbar button."
+                }
+            }
+        },
         "commands": [
             {
                 "command": "npmRunner.start",
@@ -44,7 +56,8 @@
     },
     "scripts": {
         "compile": "tsc -p .",
-        "watch": "tsc -watch -p ."
+        "watch": "tsc -watch -p .",
+        "package": "tsc -p . && vsce package"
     },
     "devDependencies": {
         "@types/node": "^22.0.0",
