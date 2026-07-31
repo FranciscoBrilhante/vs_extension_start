@@ -2,7 +2,7 @@
     "name": "npm-script-button",
     "displayName": "NPM Script Button",
     "description": "Run npm scripts from the terminal toolbar with a single button click.",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "repository": "https://github.com/FranciscoBrilhante/start_extension",
     "publisher": "FranciscoBrilhanteFernandes",
     "engines": {
