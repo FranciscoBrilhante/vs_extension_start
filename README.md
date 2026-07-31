@@ -2,6 +2,8 @@
 
 Adds a **Run NPM Script** button to the Visual Studio Code terminal toolbar. With a single click, the extension automatically finds the main script defined in your workspace's `package.json` and runs it in the active terminal. Other scripts will also appear under a dropdown.
 
+The source code is open and available, go check it out (it's only 1 .ts file!).
+
 ## Features
 
 - 🚀 Adds a convenient button to the terminal toolbar.

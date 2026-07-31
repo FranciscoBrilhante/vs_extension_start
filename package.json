@@ -4,7 +4,7 @@
     "description": "Run npm scripts from the terminal toolbar with a single button click.",
     "version": "0.0.1",
     "repository": "https://github.com/FranciscoBrilhante/start_extension",
-    "publisher": "francisco-fernandes",
+    "publisher": "FranciscoBrilhanteFernandes",
     "engines": {
         "vscode": "^1.95.0"
     },
