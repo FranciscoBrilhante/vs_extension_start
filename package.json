@@ -1,0 +1,54 @@
+{
+    "name": "npm-script-button",
+    "displayName": "NPM Script Button",
+    "description": "Run npm scripts from the terminal toolbar with a single button click.",
+    "version": "0.0.1",
+    "publisher": "francisco-fernandes",
+    "engines": {
+        "vscode": "^1.95.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "workspaceContains:package.json"
+    ],
+    "main": "./out/src/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "npmRunner.start",
+                "title": "Run Start",
+                "icon": "$(play)"
+            },
+            {
+                "command": "npmRunner.pickScript",
+                "title": "Run Script",
+                "icon": "$(chevron-down)"
+            }
+        ],
+        "menus": {
+            "view/title": [
+                {
+                    "command": "npmRunner.start",
+                    "when": "view == terminal",
+                    "group": "navigation"
+                },
+                {
+                    "command": "npmRunner.pickScript",
+                    "when": "view == terminal",
+                    "group": "navigation@1"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "compile": "tsc -p .",
+        "watch": "tsc -watch -p ."
+    },
+    "devDependencies": {
+        "@types/node": "^22.0.0",
+        "@types/vscode": "^1.95.0",
+        "typescript": "^5.8.0"
+    }
+}
